@@ -1,36 +1,48 @@
-import { BrowserRouter } from "react-router"
-import Auth from "../Pages/Auth/register/Auth"
-import { Routes, Route } from "react-router"
-import Navbar from "../Components/Navbar"
-import AuthCheck from "../AuthCheck/AuthCheck"
-import Home from "../Pages/Home/Home"
-import Login from "../Pages/Auth/login/Login"
-import Register from "../Pages/Auth/register/Register"
-import Error from "../Pages/Error/Error"
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Navbar from './../Components/Navbar/Navbar';
+import Home from "../Pages/Home/Home";
+import Auth from "../Pages/Auth/Auth";
+import Login from "../Pages/Auth/login/Login";
+import Register from "../Pages/Auth/register/Register";
+import Cart from "../Pages/Cart/Cart";
+import Error from "../Pages/Error/Error";
+import AuthCheck from "../AuthCheck/AuthCheck";
+import Footer from "../Components/Footer/Footer";
+
+
 
 const MainLayout = () => {
-  return (
-    <BrowserRouter>
-      {/* navbar */}
-      <Navbar />
-      <Routes>
-        <Route path="/" element={
-            <AuthCheck>
-                <Home/>
-            </AuthCheck>
-        } />
-        <Route path="/" element={<Home />} />
-        <Route path="/auth" element={<Auth />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
+    return (
 
-            {/* Not found routes */}
-            <Route path="*" element={<Error />} />
-      </Routes>
+        <BrowserRouter>
+            {/* navbar  */}
+            <Navbar />
+            <Routes>
+                <Route path="/" element={
+                    <AuthCheck>
+                        <Home/>
+                    </AuthCheck>
+                } />
+                <Route path="auth" element={<Auth/>}>
+                    <Route path="login" element={<Login/>} />
+                    <Route path="register" element={<Register/>} />
+                </Route>
 
-    </BrowserRouter>
-  )
-}
+                {/* top-level routes so /login and /register work directly */}
+                <Route path="/login" element={<Login/>} />
+                <Route path="/register" element={<Register/>} />
+                <Route path="/cart" element={<Cart/>} />
 
-export default MainLayout
+                {/* not found routes  */}
+                <Route path="*" element={<Error/> } />
+            </Routes>
 
+            {/* footer component  */}
+            <Footer />
+
+        </BrowserRouter>
+
+    );
+};
+
+export default MainLayout;
